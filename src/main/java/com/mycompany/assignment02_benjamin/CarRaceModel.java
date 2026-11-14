@@ -1,8 +1,5 @@
 package com.mycompany.assignment02_benjamin;
 
-import java.io.IOException;
-import javafx.fxml.FXML;
-
 public class CarRaceModel {
     private static TYPE type;
     private int number;
@@ -13,8 +10,6 @@ public class CarRaceModel {
     
     public static enum TYPE {
         CAR,
-        RACECAR,
-        
     }
     
     public static enum COLOR {
@@ -22,6 +17,5 @@ public class CarRaceModel {
         RED,
         GREEN,
         YELLOW,
-        
     }
 }

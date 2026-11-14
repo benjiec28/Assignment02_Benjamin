@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="650.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="650.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.assignment02_benjamin.CarRaceStartUpController">
    <children>
       <ImageView fx:id="redCar" fitHeight="220.0" fitWidth="470.0" layoutX="96.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
          <image>

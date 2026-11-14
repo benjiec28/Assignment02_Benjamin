@@ -33,7 +33,7 @@ public class CarRaceStartUpController {
 
     @FXML
     void enter(MouseEvent event) throws IOException {
-    App.setRoot("CarRaceController");
+        App.setRoot("CarRaceFXML");
         
     }
 
