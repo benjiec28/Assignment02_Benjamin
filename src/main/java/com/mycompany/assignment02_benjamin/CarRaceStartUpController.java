@@ -51,39 +51,49 @@ public class CarRaceStartUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    Image yellowCarIMG = new Image("file:car_15_yellow.png");
-    yellowCar = new ImageView(yellowCarIMG);
+    yellowCar.setImage(new Image(getClass().getResourceAsStream("/images/car_15_yellow.png")));
     
-    FadeTransition yellowFade = new FadeTransition(new Duration(3000), yellowCar);
-    yellowFade.setFromValue(1.0);
-    yellowFade.setToValue(0.25);
-    yellowFade.play();
+    FadeTransition yellowFadeIN = new FadeTransition(new Duration(1500), yellowCar);
+    yellowFadeIN.setFromValue(0);
+    yellowFadeIN.setToValue(1);
     
-    Image greenCarIMG = new Image("file:car_28_green.png");
-    greenCar = new ImageView(greenCarIMG);
+    FadeTransition yellowFadeOUT = new FadeTransition(new Duration(1500), yellowCar);
+    yellowFadeOUT.setFromValue(1);
+    yellowFadeOUT.setToValue(0);
     
-    FadeTransition greenFade = new FadeTransition(new Duration(3000), greenCar);
-    greenFade.setFromValue(1.0);
-    greenFade.setToValue(0.25);
-    greenFade.play();
+    greenCar.setImage(new Image(getClass().getResourceAsStream("/images/car_28_green.png")));
     
-    Image blueCarIMG = new Image("file:car_42_blue.png");
-    blueCar = new ImageView(blueCarIMG);
+    FadeTransition greenFadeIN = new FadeTransition(new Duration(1500), greenCar);
+    greenFadeIN.setFromValue(0);
+    greenFadeIN.setToValue(1);
     
-    FadeTransition blueFade = new FadeTransition(new Duration(3000), blueCar);
-    blueFade.setFromValue(1.0);
-    blueFade.setToValue(0.25);
-    blueFade.play();
+    FadeTransition greenFadeOUT = new FadeTransition(new Duration(1500), greenCar);
+    greenFadeOUT.setFromValue(1);
+    greenFadeOUT.setToValue(0);
     
-    Image redCarIMG = new Image("file:car_67_red.png");
-    redCar = new ImageView(redCarIMG);
+    blueCar.setImage(new Image(getClass().getResourceAsStream("/images/car_42_blue.png")));
     
-    FadeTransition redFade = new FadeTransition(new Duration(3000), redCar);
-    redFade.setFromValue(1.0);
-    redFade.setToValue(0.25);
-    redFade.play();
+    FadeTransition blueFadeIN = new FadeTransition(new Duration(1500), blueCar);
+    blueFadeIN.setFromValue(0);
+    blueFadeIN.setToValue(1);
     
-    SequentialTransition slideShow = new SequentialTransition(yellowFade, greenFade, blueFade, redFade);
+    FadeTransition blueFadeOUT = new FadeTransition(new Duration(1500), blueCar);
+    blueFadeOUT.setFromValue(1);
+    blueFadeOUT.setToValue(0);
+    
+    redCar.setImage(new Image(getClass().getResourceAsStream("/images/car_67_red.png")));
+    
+    FadeTransition redFadeIN = new FadeTransition(new Duration(1500), redCar);
+    redFadeIN.setFromValue(0);
+    redFadeIN.setToValue(1);
+    
+    FadeTransition redFadeOUT = new FadeTransition(new Duration(1500), redCar);
+    redFadeOUT.setFromValue(1);
+    redFadeOUT.setToValue(0);
+    
+    
+    SequentialTransition slideShow = new SequentialTransition(yellowFadeIN, yellowFadeOUT, greenFadeIN, greenFadeOUT, blueFadeIN, blueFadeOUT, redFadeIN, redFadeOUT);
+    slideShow.setCycleCount(SequentialTransition.INDEFINITE);
     slideShow.playFromStart();
     
     }
