@@ -13,10 +13,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <top>
@@ -28,20 +28,21 @@
             <Line endX="413.0" endY="-3.814697265625E-6" layoutX="176.0" layoutY="46.0" startX="-111.99999237060547" startY="-3.814697265625E-6" stroke="WHITE" style="-fx-stroke-dash-array: 12;" />
             <Line endX="413.0" endY="-3.814697265625E-6" layoutX="176.0" layoutY="89.0" startX="-111.99999237060547" startY="-3.814697265625E-6" stroke="WHITE" style="-fx-stroke-dash-array: 12;" />
             <Line endX="413.0" endY="-3.814697265625E-6" layoutX="176.0" layoutY="134.0" startX="-111.99999237060547" startY="-3.814697265625E-6" stroke="WHITE" style="-fx-stroke-dash-array: 12;" />
-            <Text fill="#fafafa" layoutX="22.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STARTING" textAlignment="CENTER" wrappingWidth="6.936737060546875">
+            <Text fill="#fafafa" layoutX="612.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ARRIVAL" textAlignment="CENTER" wrappingWidth="6.936737060546875">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font name="Arial Black" size="15.0" />
                </font>
             </Text>
-            <Text fill="#fafafa" layoutX="612.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ARRIVAL" textAlignment="CENTER" wrappingWidth="6.936737060546875">
+            <Text fill="#fafafa" layoutX="22.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STARTING" textAlignment="CENTER" wrappingWidth="6.936737060546875">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font name="Arial Black" size="14.0" />
                </font>
             </Text>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="26.0" layoutX="64.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="26.0" layoutX="64.0" layoutY="54.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3dff1f" height="26.0" layoutX="64.0" layoutY="99.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebff1f" height="26.0" layoutX="64.0" layoutY="146.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
+            <Pane fx:id="car1" layoutX="54.0" prefHeight="49.0" prefWidth="90.0">
+               <children>
+                  <Polygon fx:id="carBody1" fill="DODGERBLUE" points="17.20001220703125, 29.60000228881836, 78.79998779296875, 19.20000648498535, 17.20001220703125, 19.20000648498535" stroke="BLACK" strokeType="INSIDE" />
+               </children>
+            </Pane>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -58,28 +59,58 @@
                <children>
                   <HBox prefHeight="84.0" prefWidth="301.0">
                      <children>
-                        <Button mnemonicParsing="false" text="START" />
-                        <Button mnemonicParsing="false" text="PAUSE" />
-                        <Button mnemonicParsing="false" text="RESET" />
+                        <Button fx:id="startButton" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#start" style="-fx-background-color: #24a621;" text="START" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="7.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font></Button>
+                        <Button fx:id="pauseButton" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#pause" style="-fx-background-color: #1e79d6;" text="PAUSE" textFill="#fafafa">
+                           <HBox.margin>
+                              <Insets right="7.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font></Button>
+                        <Button fx:id="resetButton" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#reset" style="-fx-background-color: #ff1f1f;" text="RESET" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font></Button>
                      </children>
                   </HBox>
                   <HBox prefHeight="84.0" prefWidth="301.0">
                      <children>
-                        <Label text="Simulation Speed : " />
-                        <Slider />
-                        <Label text="0.0x" />
+                        <Label text="Simulation Speed : " textFill="#113bae">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
+                        <Slider fx:id="speedSlider" onMouseDragged="#speedChange" prefHeight="22.0" prefWidth="140.0" />
+                        <Label fx:id="speed" prefHeight="22.0" prefWidth="22.0" text="0.0x" textFill="#113bae">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font></Label>
                      </children>
                   </HBox>
                </children>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-            <Separator orientation="VERTICAL" prefHeight="160.0" prefWidth="15.0" />
+            <Separator orientation="VERTICAL" prefHeight="160.0" prefWidth="0.0">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin></Separator>
             <VBox prefHeight="100.0" prefWidth="325.0">
                <children>
-                  <Label text="Race Finished!" />
-                  <Label text="Congratulations! Car ___ is the Winner!" />
+                  <Label fx:id="raceFinishedMsg" text="Race Finished!" textFill="#113bae">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
+                  <Label fx:id="congratulationMsg" text="Congratulations! Car ___ is the Winner!" textFill="#113bae">
+                     <font>
+                        <Font name="System Bold" size="10.0" />
+                     </font></Label>
                   <Separator prefHeight="15.0" prefWidth="319.0" />
                   <GridPane prefHeight="122.0" prefWidth="323.0">
                     <columnConstraints>
@@ -97,26 +128,56 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="18.0" prefWidth="78.0" text="Final Results" GridPane.columnSpan="2" />
-                        <Label text="1" GridPane.rowIndex="1" />
-                        <Label text="2" GridPane.rowIndex="2" />
-                        <Label text="3" GridPane.rowIndex="3" />
-                        <Label text="4" GridPane.rowIndex="4" />
-                        <Label text="CAR" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="CAR" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="CAR" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="CAR" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label text="COLOR" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label text="COLOR" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <Label text="COLOR" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <Label text="COLOR" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <Label text="PLACE" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                        <Label text="PLACE" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                        <Label text="PLACE" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                        <Label text="PLACE" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                        <Label prefHeight="18.0" prefWidth="78.0" text="Final Results" textFill="#113bae" GridPane.columnSpan="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="18.0" style="-fx-background-color: #e2ec57;" text="1" textFill="WHITE" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="5.0" />
+                           </GridPane.margin></Label>
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="18.0" style="-fx-background-color: silver;" text="2" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="5.0" />
+                           </GridPane.margin></Label>
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="18.0" style="-fx-background-color: #a4753c;" text="3" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="5.0" />
+                           </GridPane.margin></Label>
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="18.0" style="-fx-background-color: #8aaabc;" text="4" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="5.0" />
+                           </GridPane.margin></Label>
+                        <Label fx:id="firstPlaceCar" text="CAR" textFill="#113bae" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="secondPlaceCar" text="CAR" textFill="#113bae" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="thirdPlaceCar" text="CAR" textFill="#113bae" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="fourthPlaceCar" text="CAR" textFill="#113bae" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="firstPlaceColor" text="COLOR" textFill="#113bae" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="secondPlaceColor" text="COLOR" textFill="#113bae" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label fx:id="thirdPlaceColor" text="COLOR" textFill="#113bae" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label fx:id="fourthPlaceColor" text="COLOR" textFill="#113bae" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <Label fx:id="firstPlace" text="PLACE" textFill="#113bae" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <Label fx:id="secondPlace" text="PLACE" textFill="#113bae" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <Label fx:id="thirdPlace" text="PLACE" textFill="#113bae" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                        <Label fx:id="fourthPlace" text="PLACE" textFill="#113bae" GridPane.columnIndex="4" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                </children>
+               <HBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </HBox.margin>
             </VBox>
          </children>
       </HBox>
