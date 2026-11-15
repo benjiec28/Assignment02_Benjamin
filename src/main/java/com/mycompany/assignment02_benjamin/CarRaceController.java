@@ -13,11 +13,24 @@ import javafx.scene.shape.Polygon;
 
 public class CarRaceController implements Initializable {
 
+
     @FXML
-    private Pane car1;
+    private Pane RedCar;
+
+    @FXML
+    private Pane blueCar;
 
     @FXML
     private Polygon carBody1;
+
+    @FXML
+    private Polygon carBody2;
+
+    @FXML
+    private Polygon carBody3;
+
+    @FXML
+    private Polygon carBody4;
 
     @FXML
     private Label congratulationMsg;
@@ -39,6 +52,9 @@ public class CarRaceController implements Initializable {
 
     @FXML
     private Label fourthPlaceColor;
+
+    @FXML
+    private Pane greenCar;
 
     @FXML
     private Button pauseButton;
@@ -76,9 +92,21 @@ public class CarRaceController implements Initializable {
     @FXML
     private Label thirdPlaceColor;
 
+    @FXML
+    private Pane yellowCar;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        carBody1.getPoints().setAll(7.0, 25.0,
+                                    80.0, 25.0,
+                                    80.0, 12.0,
+                                    65.0, 12.0,
+                                    65.0, 3.0,
+                                    35.0, 3.0,
+                                    35.0, 12.0,
+                                    7.0, 12.0,
+                                    7.0, 25.0
+                                    );
     }
     
     @FXML

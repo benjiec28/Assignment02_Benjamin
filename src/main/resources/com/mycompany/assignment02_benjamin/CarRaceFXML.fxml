@@ -12,13 +12,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.assignment02_benjamin.CarRaceController">
    <top>
       <Pane prefHeight="180.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
@@ -28,7 +29,7 @@
             <Line endX="413.0" endY="-3.814697265625E-6" layoutX="176.0" layoutY="46.0" startX="-111.99999237060547" startY="-3.814697265625E-6" stroke="WHITE" style="-fx-stroke-dash-array: 12;" />
             <Line endX="413.0" endY="-3.814697265625E-6" layoutX="176.0" layoutY="89.0" startX="-111.99999237060547" startY="-3.814697265625E-6" stroke="WHITE" style="-fx-stroke-dash-array: 12;" />
             <Line endX="413.0" endY="-3.814697265625E-6" layoutX="176.0" layoutY="134.0" startX="-111.99999237060547" startY="-3.814697265625E-6" stroke="WHITE" style="-fx-stroke-dash-array: 12;" />
-            <Text fill="#fafafa" layoutX="612.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ARRIVAL" textAlignment="CENTER" wrappingWidth="6.936737060546875">
+            <Text fill="#fafafa" layoutX="611.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ARRIVAL" textAlignment="CENTER" wrappingWidth="6.936737060546875">
                <font>
                   <Font name="Arial Black" size="15.0" />
                </font>
@@ -38,9 +39,36 @@
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Text>
-            <Pane fx:id="car1" layoutX="54.0" prefHeight="49.0" prefWidth="90.0">
+            <Pane fx:id="yellowCar" layoutX="64.0" layoutY="3.0" prefHeight="40.0" prefWidth="85.0">
                <children>
-                  <Polygon fx:id="carBody1" fill="DODGERBLUE" points="17.20001220703125, 29.60000228881836, 78.79998779296875, 19.20000648498535, 17.20001220703125, 19.20000648498535" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#98a0a6" layoutX="22.0" layoutY="27.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#98a0a6" layoutX="63.0" layoutY="27.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Polygon fx:id="carBody1" fill="#dbf724" layoutX="-2.0" layoutY="1.0" points="44.50000762939453, -1.0000059604644775, 87.00001525878906, 25.60000228881836, 5.200019836425781, 25.60000228881836" stroke="BLACK" strokeType="INSIDE" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcfcfc" height="6.0" layoutX="48.0" layoutY="6.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.2" width="12.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="greenCar" layoutX="64.0" layoutY="50.0" prefHeight="40.0" prefWidth="85.0">
+               <children>
+                  <Circle fill="#98a0a6" layoutX="22.0" layoutY="27.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#98a0a6" layoutX="63.0" layoutY="27.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Polygon fx:id="carBody2" fill="#1bac30" layoutX="-2.0" layoutY="1.0" points="44.50000762939453, -1.0000059604644775, 87.00001525878906, 25.60000228881836, 5.200019836425781, 25.60000228881836" stroke="BLACK" strokeType="INSIDE" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcfcfc" height="6.0" layoutX="48.0" layoutY="6.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.2" width="12.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="blueCar" layoutX="64.0" layoutY="94.0" prefHeight="40.0" prefWidth="85.0">
+               <children>
+                  <Circle fill="#98a0a6" layoutX="22.0" layoutY="27.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#98a0a6" layoutX="63.0" layoutY="27.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Polygon fx:id="carBody3" fill="DODGERBLUE" layoutX="-2.0" layoutY="1.0" points="44.50000762939453, -1.0000059604644775, 87.00001525878906, 25.60000228881836, 5.200019836425781, 25.60000228881836" stroke="BLACK" strokeType="INSIDE" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcfcfc" height="6.0" layoutX="48.0" layoutY="6.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.2" width="12.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="RedCar" layoutX="64.0" layoutY="143.0" prefHeight="40.0" prefWidth="85.0">
+               <children>
+                  <Circle fill="#98a0a6" layoutX="22.0" layoutY="27.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#98a0a6" layoutX="63.0" layoutY="27.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Polygon fx:id="carBody4" fill="#ff1f1f" layoutX="-2.0" layoutY="1.0" points="44.50000762939453, -1.0000059604644775, 87.00001525878906, 25.60000228881836, 5.200019836425781, 25.60000228881836" stroke="BLACK" strokeType="INSIDE" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcfcfc" height="6.0" layoutX="48.0" layoutY="6.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="0.2" width="12.0" />
                </children>
             </Pane>
          </children>
