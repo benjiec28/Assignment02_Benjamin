@@ -1,5 +1,7 @@
 package com.mycompany.assignment02_benjamin;
 
+import com.mycompany.assignment02_benjamin.Car.COLOR;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -15,7 +17,7 @@ public class CarRaceController implements Initializable {
 
 
     @FXML
-    private Pane RedCar;
+    private Pane redCar;
 
     @FXML
     private Pane blueCar;
@@ -95,8 +97,15 @@ public class CarRaceController implements Initializable {
     @FXML
     private Pane yellowCar;
 
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Car yellowCarInfo = new Car("15", 0, 0, COLOR.YELLOW);
+        Car greenCarInfo = new Car("28", 0, 0, COLOR.GREEN);
+        Car blueCarInfo = new Car("42", 0, 0, COLOR.BLUE);
+        Car redCarInfo = new Car("67", 0, 0, COLOR.RED);
+        
+        Pane cars[] = {yellowCar, greenCar, blueCar, redCar};
         carBody1.getPoints().setAll(7.0, 25.0,
                                     80.0, 25.0,
                                     80.0, 12.0,
@@ -108,6 +117,24 @@ public class CarRaceController implements Initializable {
                                     7.0, 25.0
                                     );
     }
+    
+    public void createCar() {
+
+    }
+    
+    public void generateAnimation() {
+        
+    }
+        
+    public void updateStats() {
+        
+    }
+    
+    public void getWinner() {
+        
+    }
+    
+
     
     @FXML
     void pause(MouseEvent event) {

@@ -34,12 +34,12 @@
             <Font name="System Bold" size="50.0" />
          </font>
       </Label>
-      <Button fx:id="enterButton" layoutX="387.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#enter" prefHeight="50.0" prefWidth="115.0" style="-fx-background-color: green;" text="ENTER">
+      <Button fx:id="enterButton" layoutX="374.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#enter" prefHeight="50.0" prefWidth="115.0" style="-fx-background-color: green;" text="ENTER">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="exitButton" layoutX="144.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="50.0" prefWidth="115.0" style="-fx-background-color: red;" text="EXIT">
+      <Button fx:id="exitButton" layoutX="160.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="50.0" prefWidth="115.0" style="-fx-background-color: red;" text="EXIT">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
