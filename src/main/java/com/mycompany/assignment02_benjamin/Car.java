@@ -1,6 +1,7 @@
 package com.mycompany.assignment02_benjamin;
 
 import java.util.Random;
+import javafx.scene.layout.Pane;
 
 public class Car {
     private static TYPE type;
@@ -8,7 +9,7 @@ public class Car {
     private int xPosition;
     private int yPosition;
     private COLOR color;
-    private int speed;
+    private int time;
 
     public Car(String number, int xPosition, int yPosition, COLOR color) {
         this.number = number;
@@ -60,26 +61,19 @@ public class Car {
         this.yPosition = yPosition;
     }
 
-    public COLOR getColor() {
-        return color;
-    }
-
     public void setColor(COLOR color) {
         this.color = color;
     }
 
-    public int getSpeed() {
-        return speed;
+    public int getTime() {
+        return time;
     }
 
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+
     public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-    
-    public void generateSpeed(Car car) {
-        Random rand = new Random();
-        this.speed = rand.nextInt(25);
-        
-        car.setSpeed(speed);
-    }
+        this.time = time;    }
 }

@@ -3,7 +3,10 @@ package com.mycompany.assignment02_benjamin;
 import com.mycompany.assignment02_benjamin.Car.COLOR;
 import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,6 +15,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
+import javafx.util.Duration;
 
 public class CarRaceController implements Initializable {
 
@@ -97,16 +101,24 @@ public class CarRaceController implements Initializable {
     @FXML
     private Pane yellowCar;
 
-    
+    private int time;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        pauseButton.setDisable(true);
+        resetButton.setDisable(true);
+
         Car yellowCarInfo = new Car("15", 0, 0, COLOR.YELLOW);
         Car greenCarInfo = new Car("28", 0, 0, COLOR.GREEN);
         Car blueCarInfo = new Car("42", 0, 0, COLOR.BLUE);
         Car redCarInfo = new Car("67", 0, 0, COLOR.RED);
         
         Pane cars[] = {yellowCar, greenCar, blueCar, redCar};
-        carBody1.getPoints().setAll(7.0, 25.0,
+    }
+    
+    public void createCar(Pane car) {
+        Polygon carBody = new Polygon();
+        carBody.getPoints().setAll(7.0, 25.0,
                                     80.0, 25.0,
                                     80.0, 12.0,
                                     65.0, 12.0,
@@ -118,12 +130,21 @@ public class CarRaceController implements Initializable {
                                     );
     }
     
-    public void createCar() {
-
+    public int generateTime() {
+        Random rand = new Random();
+        time = rand.nextInt(16) + 10;
+        return time;
     }
-    
-    public void generateAnimation() {
         
+    public void generateAnimation(Pane car) {
+        TranslateTransition translate = new TranslateTransition();
+        
+        translate.setNode(car);
+        translate.setToX(435);
+        translate.setDuration(Duration.seconds(generateTime()));
+        translate.setInterpolator(Interpolator.EASE_BOTH);
+        
+        translate.play();
     }
         
     public void updateStats() {
@@ -134,8 +155,6 @@ public class CarRaceController implements Initializable {
         
     }
     
-
-    
     @FXML
     void pause(MouseEvent event) {
 
@@ -143,7 +162,14 @@ public class CarRaceController implements Initializable {
 
     @FXML
     void reset(MouseEvent event) {
-
+        yellowCar.setTranslateX(0);
+        greenCar.setTranslateX(0);
+        blueCar.setTranslateX(0);
+        redCar.setTranslateX(0);
+        
+        startButton.setDisable(false);
+        pauseButton.setDisable(true);
+        resetButton.setDisable(true);
     }
 
     @FXML
@@ -153,7 +179,14 @@ public class CarRaceController implements Initializable {
 
     @FXML
     void start(MouseEvent event) {
-
+        generateAnimation(yellowCar);
+        generateAnimation(greenCar);
+        generateAnimation(blueCar);
+        generateAnimation(redCar);
+        
+        startButton.setDisable(true);
+        pauseButton.setDisable(false);
+        resetButton.setDisable(false);
     }
 
 }
