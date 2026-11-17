@@ -113,6 +113,7 @@ public class CarRaceController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         pauseButton.setDisable(true);
         resetButton.setDisable(true);
+        speedSlider.setDisable(true);
 
         Car yellowCarInfo = new Car("15", 0, 0, COLOR.YELLOW);
         Car greenCarInfo = new Car("28", 0, 0, COLOR.GREEN);
@@ -187,7 +188,8 @@ public class CarRaceController implements Initializable {
                 t.pause();
             }
             pauseButton.setText("RESUME");
-            
+            speedSlider.setDisable(true);
+
         } else {
             for (TranslateTransition t : transitions) {
                 if (t.getStatus() == Animation.Status.PAUSED) {
@@ -195,6 +197,7 @@ public class CarRaceController implements Initializable {
                 }
             }
             pauseButton.setText("PAUSE");
+            speedSlider.setDisable(false);
         }
     }
 
@@ -214,6 +217,7 @@ public class CarRaceController implements Initializable {
         startButton.setDisable(false);
         pauseButton.setDisable(true);
         resetButton.setDisable(true);
+        speedSlider.setDisable(true);
         
         speedSlider.setValue(1.0); 
     }
@@ -233,6 +237,7 @@ public class CarRaceController implements Initializable {
         startButton.setDisable(true);
         pauseButton.setDisable(false);
         resetButton.setDisable(false);
+        speedSlider.setDisable(false);
     }
 
 }
