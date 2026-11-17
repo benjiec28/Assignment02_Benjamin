@@ -3,8 +3,11 @@ package com.mycompany.assignment02_benjamin;
 import com.mycompany.assignment02_benjamin.Car.COLOR;
 import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -102,7 +105,8 @@ public class CarRaceController implements Initializable {
     private Pane yellowCar;
 
     private int time;
-
+private final List<TranslateTransition> transitions = new ArrayList<>();
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         pauseButton.setDisable(true);
@@ -138,12 +142,13 @@ public class CarRaceController implements Initializable {
         
     public void generateAnimation(Pane car) {
         TranslateTransition translate = new TranslateTransition();
-        
         translate.setNode(car);
+        translate.setFromX(0);
         translate.setToX(435);
         translate.setDuration(Duration.seconds(generateTime()));
         translate.setInterpolator(Interpolator.EASE_BOTH);
         
+        transitions.add(translate);
         translate.play();
     }
         
@@ -157,16 +162,35 @@ public class CarRaceController implements Initializable {
     
     @FXML
     void pause(MouseEvent event) {
+        if (transitions.isEmpty()) return;
 
+    if (pauseButton.getText().equals("PAUSE")) {
+        for (TranslateTransition t : transitions) {
+            t.pause();
+        }
+        pauseButton.setText("RESUME");
+        
+    } else {
+        for (TranslateTransition t : transitions) {
+            t.play();
+        }
+        pauseButton.setText("PAUSE");
     }
+}
 
     @FXML
     void reset(MouseEvent event) {
+        for (TranslateTransition t : transitions) {
+            t.stop();
+        }
+        transitions.clear();
+        
         yellowCar.setTranslateX(0);
         greenCar.setTranslateX(0);
         blueCar.setTranslateX(0);
         redCar.setTranslateX(0);
         
+        pauseButton.setText("PAUSE");
         startButton.setDisable(false);
         pauseButton.setDisable(true);
         resetButton.setDisable(true);
