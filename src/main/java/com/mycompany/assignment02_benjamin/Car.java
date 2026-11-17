@@ -9,7 +9,7 @@ public class Car {
     private int xPosition;
     private int yPosition;
     private COLOR color;
-    private int time;
+    private double time;
 
     public Car(String number, int xPosition, int yPosition, COLOR color) {
         this.number = number;
@@ -65,15 +65,11 @@ public class Car {
         this.color = color;
     }
 
-    public int getTime() {
+    public double getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(double time) {
         this.time = time;
     }
-
-
-    public void setSpeed(int speed) {
-        this.time = time;    }
 }

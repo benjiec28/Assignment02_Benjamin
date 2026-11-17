@@ -104,9 +104,10 @@ public class CarRaceController implements Initializable {
     @FXML
     private Pane yellowCar;
 
-    private int time;
-private final List<TranslateTransition> transitions = new ArrayList<>();
-    
+    private double time;
+    private final List<TranslateTransition> transitions = new ArrayList<>();
+    private final Random rand = new Random();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         pauseButton.setDisable(true);
@@ -134,9 +135,8 @@ private final List<TranslateTransition> transitions = new ArrayList<>();
                                     );
     }
     
-    public int generateTime() {
-        Random rand = new Random();
-        time = rand.nextInt(16) + 10;
+    public double generateTime() {
+        time = 10.0 + rand.nextDouble() * 5.0;
         return time;
     }
         
@@ -162,21 +162,25 @@ private final List<TranslateTransition> transitions = new ArrayList<>();
     
     @FXML
     void pause(MouseEvent event) {
-        if (transitions.isEmpty()) return;
+        if (transitions.isEmpty()) {
+            return;
+        }
 
-    if (pauseButton.getText().equals("PAUSE")) {
-        for (TranslateTransition t : transitions) {
-            t.pause();
+        if (pauseButton.getText().equals("PAUSE")) {
+            for (TranslateTransition t : transitions) {
+                t.pause();
+            }
+            pauseButton.setText("RESUME");
+            
+        } else {
+            for (TranslateTransition t : transitions) {
+                if (t.getStatus() == Animation.Status.PAUSED) {
+                    t.play(); 
+                }
+            }
+            pauseButton.setText("PAUSE");
         }
-        pauseButton.setText("RESUME");
-        
-    } else {
-        for (TranslateTransition t : transitions) {
-            t.play();
-        }
-        pauseButton.setText("PAUSE");
     }
-}
 
     @FXML
     void reset(MouseEvent event) {
