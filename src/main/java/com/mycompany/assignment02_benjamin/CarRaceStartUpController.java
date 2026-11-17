@@ -41,7 +41,6 @@ public class CarRaceStartUpController implements Initializable {
     @FXML
     void enter(MouseEvent event) throws IOException {
         App.setRoot("CarRaceFXML");
-        
     }
 
     @FXML

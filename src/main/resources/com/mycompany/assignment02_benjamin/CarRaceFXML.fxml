@@ -120,6 +120,23 @@
                            </font></Label>
                      </children>
                   </HBox>
+                  <HBox prefHeight="27.0" prefWidth="314.0">
+                     <children>
+                        <Button fx:id="exitButton1" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="27.0" prefWidth="67.0" style="-fx-background-color: #940000;" text="EXIT" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="returnButton" mnemonicParsing="false" onMouseClicked="#returnToStartUp" prefHeight="27.0" prefWidth="78.0" style="-fx-background-color: #1e2d8e;" text="RETURN" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
                <padding>
                   <Insets bottom="5.0" right="5.0" top="5.0" />

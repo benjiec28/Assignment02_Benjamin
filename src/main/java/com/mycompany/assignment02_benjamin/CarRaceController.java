@@ -1,6 +1,7 @@
 package com.mycompany.assignment02_benjamin;
 
 import com.mycompany.assignment02_benjamin.Car.COLOR;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -45,6 +47,9 @@ public class CarRaceController implements Initializable {
     private Label congratulationMsg;
 
     @FXML
+    private Button exitButton;
+      
+    @FXML
     private Label firstPlace;
 
     @FXML
@@ -73,6 +78,9 @@ public class CarRaceController implements Initializable {
 
     @FXML
     private Button resetButton;
+    
+    @FXML
+    private Button returnButton;
 
     @FXML
     private Label secondPlace;
@@ -109,6 +117,17 @@ public class CarRaceController implements Initializable {
     private final Random rand = new Random();
     private int length = 490;
 
+    
+    @FXML
+    void exit(MouseEvent event) {
+        Platform.exit();
+    }
+    
+    @FXML
+    void returnToStartUp(MouseEvent event) throws IOException {
+        App.setRoot("CarRaceStartUp");
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         pauseButton.setDisable(true);
