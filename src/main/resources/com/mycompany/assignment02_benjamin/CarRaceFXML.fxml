@@ -113,7 +113,7 @@
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font></Label>
-                        <Slider fx:id="speedSlider" onMouseDragged="#speedChange" prefHeight="22.0" prefWidth="140.0" />
+                        <Slider fx:id="speedSlider" max="3.0" min="1.0" onMouseDragged="#speedChange" prefHeight="22.0" prefWidth="140.0" />
                         <Label fx:id="speed" prefHeight="22.0" prefWidth="22.0" text="0.0x" textFill="#113bae">
                            <font>
                               <Font name="System Bold" size="11.0" />

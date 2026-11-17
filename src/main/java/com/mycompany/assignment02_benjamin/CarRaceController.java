@@ -107,6 +107,7 @@ public class CarRaceController implements Initializable {
     private double time;
     private final List<TranslateTransition> transitions = new ArrayList<>();
     private final Random rand = new Random();
+    private int length = 490;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -119,6 +120,21 @@ public class CarRaceController implements Initializable {
         Car redCarInfo = new Car("67", 0, 0, COLOR.RED);
         
         Pane cars[] = {yellowCar, greenCar, blueCar, redCar};
+        
+        speedSlider.valueProperty().addListener((ov, oldVal, newVal) -> {
+             double speedFactor = newVal.doubleValue();
+        
+        if (speedFactor <= 0.1) {
+            speedFactor = 0.1;
+        }
+
+        speed.setText(String.format("%.1fx", speedFactor));
+
+        double calculatedRate = speedFactor / 1;
+        for (TranslateTransition transition : transitions) {
+            transition.setRate(calculatedRate);
+        }
+    });
     }
     
     public void createCar(Pane car) {
@@ -198,6 +214,8 @@ public class CarRaceController implements Initializable {
         startButton.setDisable(false);
         pauseButton.setDisable(true);
         resetButton.setDisable(true);
+        
+        speedSlider.setValue(1.0); 
     }
 
     @FXML
