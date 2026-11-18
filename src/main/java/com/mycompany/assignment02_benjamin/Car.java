@@ -1,17 +1,15 @@
 package com.mycompany.assignment02_benjamin;
 
-import java.util.Random;
-import javafx.scene.layout.Pane;
-
 public class Car {
     private static TYPE type;
     private String number;
-    private int xPosition;
-    private int yPosition;
+    private double xPosition;
+    private double yPosition;
     private COLOR color;
+    private double speed;
     private double time;
 
-    public Car(String number, int xPosition, int yPosition, COLOR color) {
+    public Car(String number, double xPosition, double yPosition, COLOR color) {
         this.number = number;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
@@ -19,7 +17,7 @@ public class Car {
     }
     
     public static enum TYPE {
-        CAR,
+        SEDAN
     }
     
     public static enum COLOR {
@@ -29,47 +27,59 @@ public class Car {
         YELLOW,
     }
 
-    public static TYPE getType() {
-        return type;
-    }
-
-    public static void setType(TYPE type) {
-        Car.type = type;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public int getxPosition() {
-        return xPosition;
-    }
-
-    public void setxPosition(int xPosition) {
-        this.xPosition = xPosition;
-    }
-
-    public int getyPosition() {
-        return yPosition;
-    }
-
-    public void setyPosition(int yPosition) {
-        this.yPosition = yPosition;
-    }
-
-    public void setColor(COLOR color) {
-        this.color = color;
-    }
-
-    public double getTime() {
-        return time;
-    }
-
-    public void setTime(double time) {
-        this.time = time;
-    }
+ public static TYPE getType() {
+            return type;
+        }
+ 
+        public static void setType(TYPE type) {
+            Car.type = type;
+        }
+ 
+        public String getNumber() {
+            return number;
+        }
+ 
+        public void setNumber(String number) {
+            this.number = number;
+        }
+ 
+        public double getxPosition() {
+            return xPosition;
+        }
+ 
+        public void setxPosition(int xPosition) {
+            this.xPosition = xPosition;
+        }
+ 
+        public double getyPosition() {
+            return yPosition;
+        }
+ 
+        public void setyPosition(int yPosition) {
+            this.yPosition = yPosition;
+        }
+ 
+        public COLOR getColor() {
+            return color;
+        }
+ 
+        public void setColor(COLOR color) {
+            this.color = color;
+        }
+ 
+        public double getSpeed() {
+            return speed;
+        }
+ 
+        public void setSpeed(double speed) {
+            this.speed = speed;
+        }
+ 
+        public double getTime() {
+            return time;
+        }
+ 
+        public void setTime(double time) {
+            this.time = time;
+        }
 }
