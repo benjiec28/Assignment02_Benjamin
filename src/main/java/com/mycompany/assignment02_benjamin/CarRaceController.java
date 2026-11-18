@@ -5,15 +5,20 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -115,8 +120,19 @@ public class CarRaceController implements Initializable {
     private double time;
     private final List<TranslateTransition> transitions = new ArrayList<>();
     private final Random rand = new Random();
-    private int length = 490;
 
+    private static final String[] PLACE_NAMES = {"1st", "2nd", "3rd", "4th"};
+    private static final double WHEEL_RADIUS = 7.0;
+    private static final double WHEEL_SPIN_SECONDS = 0.6;
+ 
+    private final CarRaceModel model = new CarRaceModel();
+    private final Map<COLOR, Pane> carPanes = new EnumMap<>(COLOR.class);
+    private final Map<Car, List<Group>> carWheels = new HashMap<>();
+    private final Map<Car, List<RotateTransition>> carSpins = new HashMap<>();
+    private Label[] placeNumberLabels;
+    private Label[] placeColorLabels;
+    private Label[] placeLabels;
+ 
     
     @FXML
     void exit(MouseEvent event) {
@@ -133,6 +149,8 @@ public class CarRaceController implements Initializable {
         pauseButton.setDisable(true);
         resetButton.setDisable(true);
         speedSlider.setDisable(true);
+        speedSlider.setValue(1.0);
+        speed.setText("1.0x");
 
         Car yellowCarInfo = new Car("15", 0, 0, COLOR.YELLOW);
         Car greenCarInfo = new Car("28", 0, 0, COLOR.GREEN);

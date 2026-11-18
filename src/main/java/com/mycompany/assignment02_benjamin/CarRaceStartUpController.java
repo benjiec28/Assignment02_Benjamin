@@ -50,51 +50,56 @@ public class CarRaceStartUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    yellowCar.setImage(new Image(getClass().getResourceAsStream("/images/car_15_yellow.png")));
-    
-    FadeTransition yellowFadeIN = new FadeTransition(new Duration(1500), yellowCar);
-    yellowFadeIN.setFromValue(0);
-    yellowFadeIN.setToValue(1);
-    
-    FadeTransition yellowFadeOUT = new FadeTransition(new Duration(1500), yellowCar);
-    yellowFadeOUT.setFromValue(1);
-    yellowFadeOUT.setToValue(0);
-    
-    greenCar.setImage(new Image(getClass().getResourceAsStream("/images/car_28_green.png")));
-    
-    FadeTransition greenFadeIN = new FadeTransition(new Duration(1500), greenCar);
-    greenFadeIN.setFromValue(0);
-    greenFadeIN.setToValue(1);
-    
-    FadeTransition greenFadeOUT = new FadeTransition(new Duration(1500), greenCar);
-    greenFadeOUT.setFromValue(1);
-    greenFadeOUT.setToValue(0);
-    
-    blueCar.setImage(new Image(getClass().getResourceAsStream("/images/car_42_blue.png")));
-    
-    FadeTransition blueFadeIN = new FadeTransition(new Duration(1500), blueCar);
-    blueFadeIN.setFromValue(0);
-    blueFadeIN.setToValue(1);
-    
-    FadeTransition blueFadeOUT = new FadeTransition(new Duration(1500), blueCar);
-    blueFadeOUT.setFromValue(1);
-    blueFadeOUT.setToValue(0);
-    
-    redCar.setImage(new Image(getClass().getResourceAsStream("/images/car_67_red.png")));
-    
-    FadeTransition redFadeIN = new FadeTransition(new Duration(1500), redCar);
-    redFadeIN.setFromValue(0);
-    redFadeIN.setToValue(1);
-    
-    FadeTransition redFadeOUT = new FadeTransition(new Duration(1500), redCar);
-    redFadeOUT.setFromValue(1);
-    redFadeOUT.setToValue(0);
-    
-    
-    SequentialTransition slideShow = new SequentialTransition(yellowFadeIN, yellowFadeOUT, greenFadeIN, greenFadeOUT, blueFadeIN, blueFadeOUT, redFadeIN, redFadeOUT);
-    slideShow.setCycleCount(SequentialTransition.INDEFINITE);
-    slideShow.playFromStart();
-    
+        yellowCar.setOpacity(0);
+        greenCar.setOpacity(0);
+        blueCar.setOpacity(0);
+        redCar.setOpacity(0); 
+
+        yellowCar.setImage(new Image(getClass().getResourceAsStream("/images/car_15_yellow.png")));
+
+        FadeTransition yellowFadeIN = new FadeTransition(new Duration(1500), yellowCar);
+        yellowFadeIN.setFromValue(0);
+        yellowFadeIN.setToValue(1);
+
+        FadeTransition yellowFadeOUT = new FadeTransition(new Duration(1500), yellowCar);
+        yellowFadeOUT.setFromValue(1);
+        yellowFadeOUT.setToValue(0);
+
+        greenCar.setImage(new Image(getClass().getResourceAsStream("/images/car_28_green.png")));
+
+        FadeTransition greenFadeIN = new FadeTransition(new Duration(1500), greenCar);
+        greenFadeIN.setFromValue(0);
+        greenFadeIN.setToValue(1);
+
+        FadeTransition greenFadeOUT = new FadeTransition(new Duration(1500), greenCar);
+        greenFadeOUT.setFromValue(1);
+        greenFadeOUT.setToValue(0);
+
+        blueCar.setImage(new Image(getClass().getResourceAsStream("/images/car_42_blue.png")));
+
+        FadeTransition blueFadeIN = new FadeTransition(new Duration(1500), blueCar);
+        blueFadeIN.setFromValue(0);
+        blueFadeIN.setToValue(1);
+
+        FadeTransition blueFadeOUT = new FadeTransition(new Duration(1500), blueCar);
+        blueFadeOUT.setFromValue(1);
+        blueFadeOUT.setToValue(0);
+
+        redCar.setImage(new Image(getClass().getResourceAsStream("/images/car_67_red.png")));
+
+        FadeTransition redFadeIN = new FadeTransition(new Duration(1500), redCar);
+        redFadeIN.setFromValue(0);
+        redFadeIN.setToValue(1);
+
+        FadeTransition redFadeOUT = new FadeTransition(new Duration(1500), redCar);
+        redFadeOUT.setFromValue(1);
+        redFadeOUT.setToValue(0);
+
+
+        SequentialTransition slideShow = new SequentialTransition(yellowFadeIN, yellowFadeOUT, greenFadeIN, greenFadeOUT, blueFadeIN, blueFadeOUT, redFadeIN, redFadeOUT);
+        slideShow.setCycleCount(SequentialTransition.INDEFINITE);
+        slideShow.playFromStart();
+
     }
 }
 
