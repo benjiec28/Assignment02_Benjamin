@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class CarRaceController implements Initializable {
@@ -158,6 +166,19 @@ public class CarRaceController implements Initializable {
         Car redCarInfo = new Car("67", 0, 0, COLOR.RED);
         
         Pane cars[] = {yellowCar, greenCar, blueCar, redCar};
+        Car carInfos[] = {yellowCarInfo, greenCarInfo, blueCarInfo, redCarInfo};
+ 
+        placeNumberLabels = new Label[] {firstPlaceCar, secondPlaceCar, thirdPlaceCar, fourthPlaceCar};
+        placeColorLabels = new Label[] {firstPlaceColor, secondPlaceColor, thirdPlaceColor, fourthPlaceColor};
+        placeLabels = new Label[] {firstPlace, secondPlace, thirdPlace, fourthPlace};
+ 
+        for (int i = 0; i < cars.length; i++) {
+            Car carInfo = carInfos[i];
+            model.addCar(carInfo);
+            carPanes.put(carInfo.getColor(), cars[i]);
+            cars[i].translateXProperty().addListener((obs, oldVal, newVal)
+                    -> model.updatePosition(carInfo, newVal.doubleValue()));
+        }
         
         speedSlider.valueProperty().addListener((ov, oldVal, newVal) -> {
              double speedFactor = newVal.doubleValue();
@@ -173,20 +194,6 @@ public class CarRaceController implements Initializable {
             transition.setRate(calculatedRate);
         }
     });
-    }
-    
-    public void createCar(Pane car) {
-        Polygon carBody = new Polygon();
-        carBody.getPoints().setAll(7.0, 25.0,
-                                    80.0, 25.0,
-                                    80.0, 12.0,
-                                    65.0, 12.0,
-                                    65.0, 3.0,
-                                    35.0, 3.0,
-                                    35.0, 12.0,
-                                    7.0, 12.0,
-                                    7.0, 25.0
-                                    );
     }
     
     public double generateTime() {
