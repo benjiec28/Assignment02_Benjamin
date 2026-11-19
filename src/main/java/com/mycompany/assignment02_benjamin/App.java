@@ -1,3 +1,5 @@
+// GitHub Link : https://github.com/benjiec28/Assignment02_Benjamin.git
+
 package com.mycompany.assignment02_benjamin;
 
 import javafx.application.Application;
@@ -8,9 +10,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
     private static Scene scene;
 
