@@ -176,6 +176,7 @@ public class CarRaceController implements Initializable {
             Car carInfo = carInfos[i];
             model.addCar(carInfo);
             carPanes.put(carInfo.getColor(), cars[i]);
+            createCar(cars[i]);
             cars[i].translateXProperty().addListener((obs, oldVal, newVal)
                     -> model.updatePosition(carInfo, newVal.doubleValue()));
         }
@@ -194,6 +195,90 @@ public class CarRaceController implements Initializable {
             transition.setRate(calculatedRate);
         }
     });
+    }
+    
+    public void createCar(Pane car) {
+        Car carInfo = findCar(car);
+        Color paint = toPaint(carInfo.getColor());
+ 
+        Polygon carBody = new Polygon();
+        
+        carBody.getPoints().setAll(2.0, 28.0,
+                                    83.0, 28.0,
+                                    83.0, 19.0,
+                                    72.0, 15.0,
+                                    12.0, 15.0,
+                                    2.0, 19.0
+                                    );
+               carBody.setFill(paint);
+        carBody.setStroke(Color.BLACK);
+ 
+        Polygon roof = new Polygon(20, 15, 30, 5, 56, 5, 66, 15);
+        roof.setFill(paint.darker());
+        roof.setStroke(Color.BLACK);
+ 
+        Rectangle rearWindow = new Rectangle(31, 7, 11, 7);
+        Rectangle frontWindow = new Rectangle(44, 7, 11, 7);
+        rearWindow.setFill(Color.LIGHTSKYBLUE);
+        frontWindow.setFill(Color.LIGHTSKYBLUE);
+ 
+        Rectangle plate = new Rectangle(30, 16, 22, 11);
+        plate.setFill(Color.WHITE);
+ 
+        Text number = new Text(carInfo.getNumber());
+        number.setFont(Font.font("Arial", FontWeight.BOLD, 9));
+        number.setX(plate.getX() + (plate.getWidth() - number.getLayoutBounds().getWidth()) / 2);
+        number.setY(plate.getY() + plate.getHeight() - 2);
+ 
+        Rectangle tailLight = new Rectangle(2, 20, 4, 3);
+        Rectangle headLight = new Rectangle(79, 20, 4, 3);
+        tailLight.setFill(Color.ORANGE);
+        headLight.setFill(Color.LIGHTYELLOW);
+ 
+        Group rearWheel = createWheel(20, 29);
+        Group frontWheel = createWheel(65, 29);
+ 
+        car.getChildren().setAll(carBody, roof, rearWindow, frontWindow, plate,
+                number, tailLight, headLight, rearWheel, frontWheel);
+        carWheels.put(carInfo, Arrays.asList(rearWheel, frontWheel));
+    }
+    
+    private Group createWheel(double centerX, double centerY) {
+        Circle tire = new Circle(0, 0, WHEEL_RADIUS, Color.web("#98a0a6"));
+        tire.setStroke(Color.BLACK);
+        tire.setStrokeWidth(1.5);
+ 
+        Line spoke = new Line(0, 0, 0, -(WHEEL_RADIUS - 1));
+        spoke.setStroke(Color.BLACK);
+ 
+        Group wheel = new Group(tire, spoke);
+        wheel.setLayoutX(centerX);
+        wheel.setLayoutY(centerY);
+        return wheel;
+    }
+        
+    private Color toPaint(COLOR color) {
+        switch (color) {
+            case YELLOW:
+                return Color.web("#f7c60f");
+            case GREEN:
+                return Color.web("#1bac30");
+            case BLUE:
+                return Color.web("#1e79d6");
+            case RED:
+                return Color.web("#e01b1b");
+            default:
+                return Color.GRAY;
+        }
+    }
+ 
+    private Car findCar(Pane pane) {
+        for (Car carInfo : model.getCars()) {
+            if (carPanes.get(carInfo.getColor()) == pane) {
+                return carInfo;
+            }
+        }
+        return null;
     }
     
     public double generateTime() {
