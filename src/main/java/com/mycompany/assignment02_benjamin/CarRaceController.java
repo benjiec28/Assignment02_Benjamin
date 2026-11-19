@@ -2,7 +2,6 @@ package com.mycompany.assignment02_benjamin;
 
 import com.mycompany.assignment02_benjamin.Car.COLOR;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +35,6 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class CarRaceController implements Initializable {
-
 
     @FXML
     private Pane redCar;
@@ -129,9 +127,9 @@ public class CarRaceController implements Initializable {
     private final List<TranslateTransition> transitions = new ArrayList<>();
     private final Random rand = new Random();
 
-    private static final String[] PLACE_NAMES = {"1st", "2nd", "3rd", "4th"};
-    private static final double WHEEL_RADIUS = 7.0;
-    private static final double WHEEL_SPIN_SECONDS = 0.6;
+    private static final String[] placementStrings = {"1st", "2nd", "3rd", "4th"};
+    private static final double wheelRadius = 7.0;
+    private static final double spinsPerSecond = 0.5;
  
     private final CarRaceModel model = new CarRaceModel();
     private final Map<COLOR, Pane> carPanes = new EnumMap<>(COLOR.class);
@@ -141,12 +139,20 @@ public class CarRaceController implements Initializable {
     private Label[] placeColorLabels;
     private Label[] placeLabels;
  
-    
+    /**
+     * Exits the app.
+     * @param event the mouse click.
+     */
     @FXML
     void exit(MouseEvent event) {
         Platform.exit();
     }
     
+    /**
+     * Stops all the animations and returns to the start up screen (CarRaceStartUp).
+     * @param event the mouse click.
+     * @throws IOException the IOException.
+     */
     @FXML
     void returnToStartUp(MouseEvent event) throws IOException {
         stopAnimations();
@@ -178,28 +184,36 @@ public class CarRaceController implements Initializable {
             model.addCar(carInfo);
             carPanes.put(carInfo.getColor(), cars[i]);
             createCar(cars[i]);
+            
             cars[i].translateXProperty().addListener((obs, oldVal, newVal)
                     -> model.updatePosition(carInfo, newVal.doubleValue()));
         }
         
         speedSlider.valueProperty().addListener((ov, oldVal, newVal) -> {
-             double speedFactor = newVal.doubleValue();
+            double speedFactor = newVal.doubleValue();
         
-        if (speedFactor <= 0.1) {
-            speedFactor = 0.1;
-        }
+            if (speedFactor <= 0.1) {
+                speedFactor = 0.1;
+            }
 
-        speed.setText(String.format("%.1fx", speedFactor));
+            speed.setText(String.format("%.1fx", speedFactor));
 
-        double calculatedRate = speedFactor / 1;
-        for (TranslateTransition transition : transitions) {
-            transition.setRate(calculatedRate);
-        }
-    });
+            double calculatedRate = speedFactor / 1;
+            
+            for (TranslateTransition transition : transitions) {
+                transition.setRate(calculatedRate);
+            }
+        });
         
         hideRaceMessages();
     }
     
+    /**
+     * Creates a car using the shapes class and with its helper methods. 
+     * In this method, we create the body, roof, windows, plate (number) and the lights.
+     * It combines all the parts of the car.
+     * @param car the pane that the car is in.
+     */
     public void createCar(Pane car) {
         Car carInfo = findCar(car);
         Color paint = toPaint(carInfo.getColor());
@@ -213,7 +227,7 @@ public class CarRaceController implements Initializable {
                                     12.0, 15.0,
                                     2.0, 19.0
                                     );
-               carBody.setFill(paint);
+        carBody.setFill(paint);
         carBody.setStroke(Color.BLACK);
  
         Polygon roof = new Polygon(20, 15, 30, 5, 56, 5, 66, 15);
@@ -246,12 +260,18 @@ public class CarRaceController implements Initializable {
         carWheels.put(carInfo, Arrays.asList(rearWheel, frontWheel));
     }
     
+    /**
+     * Creates the wheel/tire of a car.
+     * @param centerX the centerX of the circle.
+     * @param centerY the circleY of the circle
+     * @return The wheel/tire.
+     */
     private Group createWheel(double centerX, double centerY) {
-        Circle tire = new Circle(0, 0, WHEEL_RADIUS, Color.web("#98a0a6"));
+        Circle tire = new Circle(0, 0, wheelRadius, Color.web("#98a0a6"));
         tire.setStroke(Color.BLACK);
         tire.setStrokeWidth(1.5);
  
-        Line spoke = new Line(0, 0, 0, -(WHEEL_RADIUS - 1));
+        Line spoke = new Line(0, 0, 0, -(wheelRadius - 1));
         spoke.setStroke(Color.BLACK);
  
         Group wheel = new Group(tire, spoke);
@@ -260,6 +280,11 @@ public class CarRaceController implements Initializable {
         return wheel;
     }
         
+    /**
+     * Helper method used to translate the enum COLOR to its corresponding color in the Color class..
+     * @param color the color from the enum.
+     * @return the color from the Color class.
+     */
     private Color toPaint(COLOR color) {
         switch (color) {
             case YELLOW:
@@ -275,6 +300,11 @@ public class CarRaceController implements Initializable {
         }
     }
  
+    /**
+     * Helper method used to find the carInfo based on the pane in which the car is in.
+     * @param pane the pane that the car is in.
+     * @return the info related to the car.
+     */
     private Car findCar(Pane pane) {
         for (Car carInfo : model.getCars()) {
             if (carPanes.get(carInfo.getColor()) == pane) {
@@ -284,6 +314,10 @@ public class CarRaceController implements Initializable {
         return null;
     }
     
+    /**
+     * Allows the wheels to rotate simultaneously.
+     * @return makes the wheels rotate simultaneously.
+     */
     private List<RotateTransition> allWheelSpins() {
         List<RotateTransition> spins = new ArrayList<>();
         
@@ -294,11 +328,19 @@ public class CarRaceController implements Initializable {
         return spins;
     }
     
+    /**
+     * Generates a random time.
+     * @return the random time.
+     */
     public double generateTime() {
         time = 10.0 + rand.nextDouble() * 5.0;
         return time;
     }
         
+    /**
+     * Generates the animation of the car including the translation of the car and the rotation of the wheels.
+     * @param car the pane that the car is in.
+     */
     public void generateAnimation(Pane car) {
         Car carInfo = findCar(car);
         double raceTime = generateTime();
@@ -316,8 +358,9 @@ public class CarRaceController implements Initializable {
         translate.play();
         
         List<RotateTransition> spins = new ArrayList<>();
+        
         for (Group wheel : carWheels.get(carInfo)) {
-            RotateTransition spin = new RotateTransition(Duration.seconds(WHEEL_SPIN_SECONDS), wheel);
+            RotateTransition spin = new RotateTransition(Duration.seconds(spinsPerSecond), wheel);
             spin.setByAngle(360);
             spin.setInterpolator(Interpolator.LINEAR);
             spin.setCycleCount(Animation.INDEFINITE);
@@ -327,21 +370,28 @@ public class CarRaceController implements Initializable {
         carSpins.put(carInfo, spins);
     }
     
-       private void onCarFinished(Car carInfo) {
-            model.recordFinish(carInfo);
-            
-            for (RotateTransition spin : carSpins.get(carInfo)) {
-                spin.stop();
-            }
-            updateStats();
+    /**
+     * Pauses the animation and updates the stats when the car reaches the end of the track.
+     * @param carInfo the information related to the car.
+     */
+    private void onCarFinished(Car carInfo) {
+        model.recordFinish(carInfo);
 
-            if (model.isRaceFinished()) {
-                getWinner();
-                pauseButton.setDisable(true);
-                speedSlider.setDisable(true);
-            }
+        for (RotateTransition spin : carSpins.get(carInfo)) {
+            spin.stop();
+        }
+        updateStats();
+
+        if (model.isRaceFinished()) {
+            getWinner();
+            pauseButton.setDisable(true);
+            speedSlider.setDisable(true);
+        }
     }
-        
+      
+    /**
+     * Updates the stats.
+     */
     public void updateStats() {
         List<Car> order = model.getFinishOrder();
         
@@ -349,8 +399,9 @@ public class CarRaceController implements Initializable {
             if (i < order.size()) {
                 Car carInfo = order.get(i);
                 placeNumberLabels[i].setText("Car #" + carInfo.getNumber());
-                placeColorLabels[i].setText("(" + carInfo.getColor() + ")");
-                placeLabels[i].setText(PLACE_NAMES[i]);
+                placeColorLabels[i].setText("" + carInfo.getColor() + "");
+                placeLabels[i].setText(placementStrings[i]);
+                
             } else {
                 placeNumberLabels[i].setText("-");
                 placeColorLabels[i].setText("-");
@@ -359,21 +410,30 @@ public class CarRaceController implements Initializable {
         }       
     }
     
+    /**
+     * Gets the winner.
+     */
     public void getWinner() {
         Car winner = model.getWinner();
         raceFinishedMsg.setText("Race Finished!");
         congratulationMsg.setText("Congratulations! Car #" + winner.getNumber()
-                + " (" + winner.getColor() + ") is the winner!");
+                + " " + winner.getColor() + " is the winner!");
         raceFinishedMsg.setVisible(true);
         congratulationMsg.setVisible(true);
     }
  
+    /**
+     * Hides the messages.
+     */
     private void hideRaceMessages() {
         raceFinishedMsg.setVisible(false);
         congratulationMsg.setVisible(false);
         updateStats();
     }
  
+    /**
+     * Stops the animations (translation of the car and rotation of the wheels).
+     */
     private void stopAnimations() {
         for (TranslateTransition t : transitions) {
             t.stop();
@@ -383,6 +443,10 @@ public class CarRaceController implements Initializable {
         }
     }
     
+    /**
+     * Either pauses or resumes the animation.
+     * @param event the mouse click.
+     */
     @FXML
     void pause(MouseEvent event) {
         if (transitions.isEmpty()) {
@@ -417,6 +481,10 @@ public class CarRaceController implements Initializable {
         }
     }
 
+    /**
+     * Resets the animation (the whole race).
+     * @param event the mouse click.
+     */
     @FXML
     void reset(MouseEvent event) {
         for (TranslateTransition t : transitions) {
@@ -451,6 +519,10 @@ public class CarRaceController implements Initializable {
         hideRaceMessages();
     }
 
+    /**
+     * Starts the animation (the whole race).
+     * @param event the mouse click.
+     */
     @FXML
     void start(MouseEvent event) {
         model.prepareRace();

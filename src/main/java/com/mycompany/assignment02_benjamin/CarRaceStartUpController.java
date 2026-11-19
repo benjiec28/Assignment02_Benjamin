@@ -42,12 +42,21 @@ public class CarRaceStartUpController implements Initializable {
 
     private MediaPlayer player;
     
+    /**
+     * Enter the game Window (CarRaceFXML).
+     * @param event the mouse click.
+     * @throws IOException the IOexception.
+     */
     @FXML
     void enter(MouseEvent event) throws IOException {
         stopMusic();
         App.setRoot("CarRaceFXML");
     }
 
+    /**
+     * Exits the app.
+     * @param event the mouse click.
+     */
     @FXML
     void exit(MouseEvent event) {
         Platform.exit();
@@ -107,6 +116,9 @@ public class CarRaceStartUpController implements Initializable {
         playMusic();
     }
     
+    /**
+     * Plays the music.
+     */
     private void playMusic() {
         Media media = new Media(getClass().getResource("/sounds/guitar.wav").toExternalForm());
         player = new MediaPlayer(media);
@@ -115,11 +127,13 @@ public class CarRaceStartUpController implements Initializable {
         
     }
     
+    /**
+     * Stops the music.
+     */
     private void stopMusic() {
-       if (player != null) {
-        player.stop();
-        player.dispose();
+        if (player != null) {
+            player.stop();
+            player.dispose();
+        }
     }
-}
-
 }
