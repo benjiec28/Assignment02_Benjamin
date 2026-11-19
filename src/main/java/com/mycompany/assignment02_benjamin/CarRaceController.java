@@ -149,6 +149,7 @@ public class CarRaceController implements Initializable {
     
     @FXML
     void returnToStartUp(MouseEvent event) throws IOException {
+        stopAnimations();
         App.setRoot("CarRaceStartUp");
     }
     
@@ -195,6 +196,8 @@ public class CarRaceController implements Initializable {
             transition.setRate(calculatedRate);
         }
     });
+        
+        hideRaceMessages();
     }
     
     public void createCar(Pane car) {
@@ -340,11 +343,44 @@ public class CarRaceController implements Initializable {
     }
         
     public void updateStats() {
+        List<Car> order = model.getFinishOrder();
         
+        for (int i = 0; i < placeLabels.length; i++) {
+            if (i < order.size()) {
+                Car carInfo = order.get(i);
+                placeNumberLabels[i].setText("Car #" + carInfo.getNumber());
+                placeColorLabels[i].setText("(" + carInfo.getColor() + ")");
+                placeLabels[i].setText(PLACE_NAMES[i]);
+            } else {
+                placeNumberLabels[i].setText("-");
+                placeColorLabels[i].setText("-");
+                placeLabels[i].setText("-");
+            }
+        }       
     }
     
     public void getWinner() {
-        
+        Car winner = model.getWinner();
+        raceFinishedMsg.setText("Race Finished!");
+        congratulationMsg.setText("Congratulations! Car #" + winner.getNumber()
+                + " (" + winner.getColor() + ") is the winner!");
+        raceFinishedMsg.setVisible(true);
+        congratulationMsg.setVisible(true);
+    }
+ 
+    private void hideRaceMessages() {
+        raceFinishedMsg.setVisible(false);
+        congratulationMsg.setVisible(false);
+        updateStats();
+    }
+ 
+    private void stopAnimations() {
+        for (TranslateTransition t : transitions) {
+            t.stop();
+        }
+        for (RotateTransition spin : allWheelSpins()) {
+            spin.stop();
+        }
     }
     
     @FXML
@@ -412,6 +448,7 @@ public class CarRaceController implements Initializable {
         speedSlider.setDisable(true);
         
         speedSlider.setValue(1.0); 
+        hideRaceMessages();
     }
 
     @FXML
@@ -422,10 +459,11 @@ public class CarRaceController implements Initializable {
         generateAnimation(blueCar);
         generateAnimation(redCar);
         
+        updateStats();
+        
         startButton.setDisable(true);
         pauseButton.setDisable(false);
         resetButton.setDisable(false);
         speedSlider.setDisable(false);
     }
-
 }
