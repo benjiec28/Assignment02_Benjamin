@@ -14,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class CarRaceStartUpController implements Initializable {
 
@@ -38,8 +40,11 @@ public class CarRaceStartUpController implements Initializable {
     @FXML
     private ImageView yellowCar;
 
+    private MediaPlayer player;
+    
     @FXML
     void enter(MouseEvent event) throws IOException {
+        stopMusic();
         App.setRoot("CarRaceFXML");
     }
 
@@ -99,10 +104,22 @@ public class CarRaceStartUpController implements Initializable {
         SequentialTransition slideShow = new SequentialTransition(yellowFadeIN, yellowFadeOUT, greenFadeIN, greenFadeOUT, blueFadeIN, blueFadeOUT, redFadeIN, redFadeOUT);
         slideShow.setCycleCount(SequentialTransition.INDEFINITE);
         slideShow.playFromStart();
-
+        playMusic();
+    }
+    
+    private void playMusic() {
+        Media media = new Media(getClass().getResource("/sounds/guitar.wav").toExternalForm());
+        player = new MediaPlayer(media);
+        player.setCycleCount(MediaPlayer.INDEFINITE);
+        player.setAutoPlay(true);
+        
+    }
+    
+    private void stopMusic() {
+       if (player != null) {
+        player.stop();
+        player.dispose();
     }
 }
 
-
-
- 
+}
