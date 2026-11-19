@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CarRaceModel {
-    public static final double TRACK_LENGTH = 435.0;
+    public static final double trackLength= 435.0;
  
     private final List<Car> cars = new ArrayList<>();
     private final List<Car> finishOrder = new ArrayList<>();
@@ -27,7 +27,7 @@ public class CarRaceModel {
  
     public void assignRaceTime(Car car, double time) {
         car.setTime(time);
-        car.setSpeed(TRACK_LENGTH / time);
+        car.setSpeed(trackLength / time);
     }
  
     public void updatePosition(Car car, double xPosition) {

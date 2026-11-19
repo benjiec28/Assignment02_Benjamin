@@ -281,21 +281,62 @@ public class CarRaceController implements Initializable {
         return null;
     }
     
+    private List<RotateTransition> allWheelSpins() {
+        List<RotateTransition> spins = new ArrayList<>();
+        
+        for (List<RotateTransition> carSpin : carSpins.values()) {
+            spins.addAll(carSpin);
+        }
+        
+        return spins;
+    }
+    
     public double generateTime() {
         time = 10.0 + rand.nextDouble() * 5.0;
         return time;
     }
         
     public void generateAnimation(Pane car) {
+        Car carInfo = findCar(car);
+        double raceTime = generateTime();
+        model.assignRaceTime(carInfo, raceTime);
+        
         TranslateTransition translate = new TranslateTransition();
         translate.setNode(car);
         translate.setFromX(0);
-        translate.setToX(435);
-        translate.setDuration(Duration.seconds(generateTime()));
+        translate.setToX(CarRaceModel.trackLength);
+        translate.setDuration(Duration.seconds(raceTime));
         translate.setInterpolator(Interpolator.EASE_BOTH);
+        translate.setOnFinished(event -> onCarFinished(carInfo));
         
         transitions.add(translate);
         translate.play();
+        
+        List<RotateTransition> spins = new ArrayList<>();
+        for (Group wheel : carWheels.get(carInfo)) {
+            RotateTransition spin = new RotateTransition(Duration.seconds(WHEEL_SPIN_SECONDS), wheel);
+            spin.setByAngle(360);
+            spin.setInterpolator(Interpolator.LINEAR);
+            spin.setCycleCount(Animation.INDEFINITE);
+            spins.add(spin);
+            spin.play();
+        }
+        carSpins.put(carInfo, spins);
+    }
+    
+       private void onCarFinished(Car carInfo) {
+            model.recordFinish(carInfo);
+            
+            for (RotateTransition spin : carSpins.get(carInfo)) {
+                spin.stop();
+            }
+            updateStats();
+
+            if (model.isRaceFinished()) {
+                getWinner();
+                pauseButton.setDisable(true);
+                speedSlider.setDisable(true);
+            }
     }
         
     public void updateStats() {
@@ -316,6 +357,10 @@ public class CarRaceController implements Initializable {
             for (TranslateTransition t : transitions) {
                 t.pause();
             }
+            
+            for (RotateTransition spin : allWheelSpins()) {
+                spin.pause();
+            }
             pauseButton.setText("RESUME");
             speedSlider.setDisable(true);
 
@@ -323,6 +368,12 @@ public class CarRaceController implements Initializable {
             for (TranslateTransition t : transitions) {
                 if (t.getStatus() == Animation.Status.PAUSED) {
                     t.play(); 
+                }
+            }
+            
+            for (RotateTransition spin : allWheelSpins()) {
+                if (spin.getStatus() == Animation.Status.PAUSED) {
+                    spin.play();
                 }
             }
             pauseButton.setText("PAUSE");
@@ -337,10 +388,22 @@ public class CarRaceController implements Initializable {
         }
         transitions.clear();
         
+        for (RotateTransition spin : allWheelSpins()) {
+            spin.stop();
+        }
+        carSpins.clear();
+        
         yellowCar.setTranslateX(0);
         greenCar.setTranslateX(0);
         blueCar.setTranslateX(0);
         redCar.setTranslateX(0);
+    
+        for (List<Group> wheels : carWheels.values()) {
+            for (Group wheel : wheels) {
+                wheel.setRotate(0);
+            }
+        }
+        model.reset();
         
         pauseButton.setText("PAUSE");
         startButton.setDisable(false);
@@ -352,12 +415,8 @@ public class CarRaceController implements Initializable {
     }
 
     @FXML
-    void speedChange(MouseEvent event) {
-
-    }
-
-    @FXML
     void start(MouseEvent event) {
+        model.prepareRace();
         generateAnimation(yellowCar);
         generateAnimation(greenCar);
         generateAnimation(blueCar);
